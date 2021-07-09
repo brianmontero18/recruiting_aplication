@@ -1,13 +1,36 @@
+@import url('../node_modules/normalize.css/normalize.css');
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	font-family: 'DaxlinePro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+		'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+		'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+:root {
+	/* BRAND */
+	--dark: #012406;
+
+	/* TEXT */
+	--text_dark: #012406;
+
+	/* GREYS */
+	--grey_dark: #c7cee3;
+	--grey_medium: #e6ebf0;
+	--line_border: #e7e7f5;
+
+	/* STATES */
+	--hover_state: #f2f3f8;
+	--white: #ffffff;
 }
