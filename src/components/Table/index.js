@@ -3,6 +3,7 @@ import useTable from '../../hooks/useTable';
 import useSortBy from '../../hooks/useSortBy';
 import { ReactComponent as SortAscIcon } from '../../assets/sort_asc.svg';
 import { ReactComponent as SortDescIcon } from '../../assets/sort_desc.svg';
+import './index.css';
 
 const defaultData = [];
 
@@ -36,34 +37,44 @@ export default function Table({
 								{...column.getSortByToggleProps()}
 								key={`header_column_${columnIndex}`}
 							>
-								{column.Header}
 								<div
 									style={{
 										display: 'flex',
-										flexDirection: 'column',
+										justifyContent: 'space-between',
+										alignItems: 'center',
 									}}
 								>
-									{column.canSort ? (
-										<>
-											<SortAscIcon
-												fillOpacity={
-													column.isSorted &&
-													!column.isSortedDesc
-														? 1
-														: 0.4
-												}
-												style={{ marginBottom: '5px' }}
-											/>
-											<SortDescIcon
-												fillOpacity={
-													column.isSorted &&
-													column.isSortedDesc
-														? 1
-														: 0.4
-												}
-											/>
-										</>
-									) : null}
+									<span>{column.Header}</span>
+									<div
+										style={{
+											display: 'flex',
+											flexDirection: 'column',
+										}}
+									>
+										{column.canSort ? (
+											<>
+												<SortAscIcon
+													fillOpacity={
+														column.isSorted &&
+														!column.isSortedDesc
+															? 1
+															: 0.4
+													}
+													style={{
+														marginBottom: '5px',
+													}}
+												/>
+												<SortDescIcon
+													fillOpacity={
+														column.isSorted &&
+														column.isSortedDesc
+															? 1
+															: 0.4
+													}
+												/>
+											</>
+										) : null}
+									</div>
 								</div>
 							</th>
 						))}

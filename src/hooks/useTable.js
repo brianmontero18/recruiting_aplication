@@ -87,8 +87,15 @@ export default function useTable(props, ...plugins) {
 	getInstance().prepareRow = React.useCallback(
 		(row) => {
 			row.cells = getInstance().visibleColumns.map((column) => {
-				const cell = row.originalRow[column.accessor];
-				return cell;
+				const value = row.originalRow[column.accessor];
+
+				if (typeof column.Cell === 'function') {
+					return React.createElement(column.Cell, {
+						value,
+					});
+				} else {
+					return value;
+				}
 			});
 		},
 		[getInstance]
@@ -135,7 +142,7 @@ function decorateColumn(column, userDefaultColumn) {
 			column
 		)
 	);
-	Object.assign(column, { originalWidth: column.width });
+	Object.assign(column, { width: column.width });
 
 	return column;
 } // Build the header groups from the bottom up

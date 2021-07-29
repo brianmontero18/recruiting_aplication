@@ -1,12 +1,10 @@
 .personio-header-container {
-	max-width: 1000px;
-	width: 100%;
+	width: 90%;
 	margin: auto;
 	padding: 5px 0px;
 }
 .personio-main-container {
-	max-width: 1000px;
-	width: 100%;
+	width: 90%;
 	margin: auto;
 }
 .personio-details-container {

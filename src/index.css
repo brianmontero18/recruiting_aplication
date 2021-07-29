@@ -20,6 +20,12 @@ code {
 
 body {
 	font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+	color: #555;
+}
+b,
+strong,
+th {
+	font-weight: 600;
 }
 :root {
 	/* BRAND */
@@ -34,6 +40,6 @@ body {
 	--line_border: #e7e7f5;
 
 	/* STATES */
-	--hover_state: #f2f3f8;
+	--hover_state: #f9f9f9;
 	--white: #ffffff;
 }
