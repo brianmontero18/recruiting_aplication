@@ -3,6 +3,8 @@ import Filters from './components/Filters';
 import Table from './components/Table';
 import useCandidates from './hooks/useCandidates';
 import useQueryString from './hooks/useQueryString';
+import { ReactComponent as CompanyLogo } from './assets/personio_logo.svg';
+
 import './App.css';
 
 export default function App() {
@@ -39,7 +41,9 @@ export default function App() {
 
 	return (
 		<>
-			<header className="personio-header-container"></header>
+			<header className="personio-header-container">
+				<CompanyLogo />
+			</header>
 			<main className="personio-main-container">
 				<section className="personio-details-container">
 					<Filters params={params} setParams={setParams} />

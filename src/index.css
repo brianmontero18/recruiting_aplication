@@ -18,6 +18,9 @@ code {
 	box-sizing: border-box;
 }
 
+body {
+	font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
 :root {
 	/* BRAND */
 	--dark: #012406;

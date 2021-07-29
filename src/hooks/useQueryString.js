@@ -15,7 +15,7 @@ export default function useQueryString() {
 				const value = props[key];
 
 				if (isNotEmpty(value)) {
-					params.set(key, value);
+					params.set(key, value.toString());
 				} else {
 					params.delete(key);
 				}

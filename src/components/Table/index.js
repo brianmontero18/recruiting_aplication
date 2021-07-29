@@ -46,23 +46,15 @@ export default function Table({
 									{column.canSort ? (
 										<>
 											<SortAscIcon
-												width={10.67}
-												height={5.33}
-												fill="#A5B8E9"
 												fillOpacity={
 													column.isSorted &&
 													!column.isSortedDesc
 														? 1
 														: 0.4
 												}
-												style={{
-													marginBottom: '5px',
-												}}
+												style={{ marginBottom: '5px' }}
 											/>
 											<SortDescIcon
-												width={10.67}
-												height={5.33}
-												fill="#A5B8E9"
 												fillOpacity={
 													column.isSorted &&
 													column.isSortedDesc
