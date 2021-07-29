@@ -6,6 +6,7 @@
 .personio-main-container {
 	width: 90%;
 	margin: auto;
+	margin-top: 40px;
 }
 .personio-details-container {
 	display: flex;
@@ -44,16 +45,4 @@
 }
 .personio-skeleton-line::before {
 	content: '\00a0';
-}
-.persionio-input {
-	background: var(--white);
-	border: none;
-	box-shadow: 0 0 0 1px var(--grey_dark);
-	box-sizing: border-box;
-	border-radius: 4px;
-	color: var(--dark);
-	padding: 0 15px;
-	font-size: 14px;
-	font-weight: 400;
-	line-height: 20px;
 }

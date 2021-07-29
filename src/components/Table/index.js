@@ -1,31 +1,49 @@
 import * as React from 'react';
-import useTable from '../../hooks/useTable';
-import useSortBy from '../../hooks/useSortBy';
+import columns from './columns';
+import useTable from './useTable';
+import useSortBy from './useSortBy';
+import { useCandidates } from '../../api/candidates';
+import { useQueryStringContext } from '../../queryStringContext';
 import { ReactComponent as SortAscIcon } from '../../assets/sort_asc.svg';
 import { ReactComponent as SortDescIcon } from '../../assets/sort_desc.svg';
 import './index.css';
 
 const defaultData = [];
 
-export default function Table({
-	data = defaultData,
-	columns,
-	isFetching,
-	initialState,
-	onChangeSort,
-}) {
+export default function Table() {
+	const { sortBy: initialSortBy, setParams } = useQueryStringContext();
+	const { data, isFetching } = useCandidates();
+
 	const { visibleColumns, rows, prepareRow, state } = useTable(
 		{
-			data,
+			data: data || defaultData,
 			columns,
-			initialState,
+			initialState: React.useMemo(() => {
+				if (initialSortBy) {
+					if (initialSortBy.startsWith('-')) {
+						return {
+							sortBy: [
+								{ id: initialSortBy.slice(1), desc: true },
+							],
+						};
+					}
+					return { sortBy: [{ id: initialSortBy, desc: false }] };
+				}
+				return {};
+			}, [initialSortBy]),
 		},
 		useSortBy
 	);
 
 	React.useEffect(() => {
-		onChangeSort(state.sortBy);
-	}, [onChangeSort, state.sortBy]);
+		if (state.sortBy[0]) {
+			const { id, desc } = state.sortBy[0];
+
+			setParams({
+				sortBy: state.sortBy.length ? `${desc ? '-' : ''}${id}` : '',
+			});
+		}
+	}, [setParams, state.sortBy]);
 
 	return (
 		<div className="personio-table-container">
@@ -81,7 +99,7 @@ export default function Table({
 					</tr>
 				</thead>
 				<tbody>
-					{!isFetching
+					{!(!data && isFetching)
 						? rows?.map((row, rowIndex) => {
 								prepareRow(row);
 
@@ -96,7 +114,7 @@ export default function Table({
 								);
 						  })
 						: null}
-					{isFetching ? (
+					{!data && isFetching ? (
 						/** LOADING SKELETON **/
 						<>
 							{[...Array(10).keys()].map((_, rowIndex) => (

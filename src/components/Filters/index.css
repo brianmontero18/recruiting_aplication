@@ -1,12 +1,32 @@
-.persionio-filters {
+.personio-filters {
 	display: flex;
 	flex-direction: row;
+	margin-bottom: 30px;
 }
 .personio-filters-box-container {
 	position: relative;
 	display: inline-block;
+	border-radius: 2px;
+	border: 1px solid #dce6ec;
+	cursor: pointer;
+	font-size: 14px;
+	line-height: 20px;
+	padding: 8px 16px;
 }
-.persionio-filters-dropdown-container {
+.personio-filters-box-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px 16px;
+	height: 36px;
+	max-width: 200px;
+	border-radius: 4px;
+	cursor: pointer;
+	border: none;
+	text-align: center;
+	background-color: var(--white);
+}
+.personio-filters-dropdown-container {
 	position: absolute;
 	top: 8px;
 	z-index: 100;
@@ -23,4 +43,19 @@
 	-webkit-animation: _27DR3 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.175) both;
 	animation: _27DR3 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.175) both;
 	will-change: transform;
+}
+
+.personio-input {
+	background: var(--white);
+	border: none;
+	box-shadow: 0 0 0 1px var(--grey_dark);
+	box-sizing: border-box;
+	border-radius: 4px;
+	color: var(--uc_brand_dark);
+	padding: 0 15px;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	width: 290px;
+	height: 36px;
 }

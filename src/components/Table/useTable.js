@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useGetLatest, _extends } from '../utils';
+import { useGetLatest, _extends } from '../../utils';
 
 export default function useTable(props, ...plugins) {
 	let instanceRef = React.useRef({}); // Create a getter for the instance (helps avoid a lot of potential memory leaks)

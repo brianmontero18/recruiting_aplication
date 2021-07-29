@@ -1,34 +1,29 @@
 import * as React from 'react';
-import useFilters from '../../hooks/useFilters';
+import { useFilters } from '../../api/candidates';
 import useClickOutside from '../../hooks/useClickOutside';
+import { useQueryStringContext } from '../../queryStringContext';
+import './index.css';
 
-export default function Filters({ params, setParams }) {
-	const {
-		data: { position_applied, status },
-	} = useFilters(params);
+export default function Filters() {
+	const { name, setParams } = useQueryStringContext();
+	const { data } = useFilters();
 
 	return (
-		<section className="persionio-filters">
-			<span>Filter List</span>
+		<section className="personio-filters">
+			<span>Applications</span>
 			<input
 				name="name"
-				className="persionio-input"
+				className="personio-input"
 				type="text"
 				placeholder="Search name"
-				value={params.get('name') || ''}
+				value={name}
 				onChange={(e) => setParams({ name: e.target.value })}
 			/>
-			<FilterBox
-				name="status"
-				label="Status"
-				options={status}
-				setParams={setParams}
-			/>
+			<FilterBox name="status" label="Status" options={data?.status} />
 			<FilterBox
 				name="position_applied"
 				label="Position Applied"
-				options={position_applied}
-				setParams={setParams}
+				options={data?.position_applied}
 			/>
 			<button
 				onClick={() =>
@@ -41,9 +36,36 @@ export default function Filters({ params, setParams }) {
 	);
 }
 
-function FilterBox({ name, options, setParams, label }) {
-	const { ref, open, setOpen } = useClickOutside();
+function FilterBox({ name, label, options }) {
+	const [open, setOpen] = React.useState(false);
+
+	return (
+		<div className="personio-filters-box-container">
+			<button
+				className="personio-filters-box-button"
+				onClick={() => setOpen((prevState) => !prevState)}
+			>
+				{label}
+			</button>
+			{open ? (
+				<FilterBoxDropdown
+					name={name}
+					options={options}
+					setOpen={setOpen}
+				/>
+			) : null}
+		</div>
+	);
+}
+
+function FilterBoxDropdown({ name, options = '', setOpen }) {
 	const [search, setSearch] = React.useState('');
+	const ref = useClickOutside({
+		callback: React.useCallback(() => setOpen(false), [setOpen]),
+	});
+	const { setParams } = useQueryStringContext();
+
+	React.useEffect(() => () => setSearch(''), []);
 
 	const handleChangeOption = React.useCallback(
 		(value) => {
@@ -57,37 +79,33 @@ function FilterBox({ name, options, setParams, label }) {
 	);
 
 	return (
-		<div className="personio-filters-box-container" ref={ref}>
-			<button onClick={() => setOpen((prevState) => !prevState)}>
-				{label}
-			</button>
-			{open ? (
-				<div className="persionio-filters-dropdown-container">
-					<input
-						className="persionio-input"
-						placeholder="Search"
-						onChange={(e) => setSearch(e.target.value)}
-					/>
-					<br />
-					{Object.keys(options).map((element, index) =>
-						element.toUpperCase().indexOf(search.toUpperCase()) !==
-						-1 ? (
-							<div key={index}>
-								<input
-									type="checkbox"
-									defaultChecked={options[element]}
-									onChange={(e) =>
-										handleChangeOption({
-											[element]: e.target.checked,
-										})
-									}
-								/>
-								<span>{element}</span>
-							</div>
-						) : null
-					)}
-				</div>
-			) : null}
+		<div className="personio-filters-dropdown-container" ref={ref}>
+			<input
+				className="personio-input"
+				placeholder="Search"
+				onChange={(e) => setSearch(e.target.value)}
+			/>
+			<br />
+			<div style={{ maxHeight: '275px', overflow: 'auto' }}>
+				{Object.keys(options).map((element, index) =>
+					element.toUpperCase().indexOf(search.toUpperCase()) !==
+					-1 ? (
+						<React.Fragment key={index}>
+							<input
+								type="checkbox"
+								defaultChecked={options[element]}
+								onChange={(e) =>
+									handleChangeOption({
+										[element]: e.target.checked,
+									})
+								}
+							/>
+							<span>{element}</span>
+							<br />
+						</React.Fragment>
+					) : null
+				)}
+			</div>
 		</div>
 	);
 }

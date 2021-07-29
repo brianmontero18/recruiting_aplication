@@ -1,14 +1,16 @@
 import * as React from 'react';
 
-export default function useClickOutside() {
+export default function useClickOutside({ callback }) {
 	const ref = React.useRef();
-	const [open, setOpen] = React.useState(false);
 
-	const clickOutside = React.useCallback((e) => {
-		if (!ref.current?.contains(e.target)) {
-			setOpen(false);
-		}
-	}, []);
+	const clickOutside = React.useCallback(
+		(e) => {
+			if (!ref.current?.contains(e.target)) {
+				callback();
+			}
+		},
+		[callback]
+	);
 
 	React.useEffect(() => {
 		document.addEventListener('click', clickOutside);
@@ -18,5 +20,5 @@ export default function useClickOutside() {
 		};
 	}, [clickOutside]);
 
-	return { ref, open, setOpen };
+	return ref;
 }
