@@ -26,6 +26,7 @@ export default function Filters() {
 				options={data?.position_applied}
 			/>
 			<button
+				className="personio-clear-filter-button"
 				onClick={() =>
 					setParams({ name: '', status: '', position_applied: '' })
 				}
@@ -86,7 +87,7 @@ function FilterBoxDropdown({ name, options = '', setOpen }) {
 				onChange={(e) => setSearch(e.target.value)}
 			/>
 			<br />
-			<div style={{ maxHeight: '275px', overflow: 'auto' }}>
+			<div className="personio-filters-dropdown-list">
 				{Object.keys(options).map((element, index) =>
 					element.toUpperCase().indexOf(search.toUpperCase()) !==
 					-1 ? (
@@ -100,7 +101,9 @@ function FilterBoxDropdown({ name, options = '', setOpen }) {
 									})
 								}
 							/>
-							<span>{element}</span>
+							<span style={{ marginLeft: '10px' }}>
+								{element}
+							</span>
 							<br />
 						</React.Fragment>
 					) : null
