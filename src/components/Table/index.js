@@ -2,8 +2,8 @@ import * as React from 'react';
 import columns from './columns';
 import useTable from './useTable';
 import useSortBy from './useSortBy';
-import { useCandidates } from '../../api/candidates';
-import { useQueryStringContext } from '../../queryStringContext';
+import { useCandidates, getCandidates } from '../../api';
+import { useQueryString } from '../../utils';
 import { ReactComponent as SortAscIcon } from '../../assets/sort_asc.svg';
 import { ReactComponent as SortDescIcon } from '../../assets/sort_desc.svg';
 import './index.css';
@@ -11,8 +11,9 @@ import './index.css';
 const defaultData = [];
 
 export default function Table() {
-	const { sortBy: initialSortBy, setParams } = useQueryStringContext();
-	const { data, isFetching } = useCandidates();
+	const { data, isFetching } = useCandidates({ select: getCandidates });
+	const { params, setParams } = useQueryString();
+	const initialSortBy = params.get('sortBy');
 
 	const { visibleColumns, rows, prepareRow, state } = useTable(
 		{

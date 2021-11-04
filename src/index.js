@@ -2,7 +2,6 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { QueryStringProvider } from './queryStringContext';
 import App from './App';
 import './index.css';
 
@@ -12,9 +11,7 @@ ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<QueryClientProvider client={queryClient}>
-				<QueryStringProvider>
-					<App />
-				</QueryStringProvider>
+				<App />
 			</QueryClientProvider>
 		</BrowserRouter>
 	</React.StrictMode>,

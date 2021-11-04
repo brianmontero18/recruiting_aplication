@@ -1,0 +1,5 @@
+.personio-dropdown-list {
+	max-height: 275px;
+	overflow: auto;
+	padding: 15px;
+}

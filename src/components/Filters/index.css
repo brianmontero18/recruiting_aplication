@@ -46,22 +46,6 @@
 	animation: _27DR3 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.175) both;
 	will-change: transform;
 }
-
-.personio-input {
-	margin: 0 18px 0 18px;
-	background: var(--white);
-	border: none;
-	box-shadow: 0 0 0 1px var(--grey_dark);
-	box-sizing: border-box;
-	border-radius: 4px;
-	color: var(--uc_brand_dark);
-	padding: 0 15px;
-	font-size: 14px;
-	font-weight: 400;
-	line-height: 20px;
-	width: 290px;
-	height: 36px;
-}
 .personio-clear-filter-button {
 	margin-left: 18px;
 	color: #0db5df;
@@ -72,9 +56,4 @@
 }
 .personio-clear-filter-button:hover {
 	background-color: #f4f7f9;
-}
-.personio-filters-dropdown-list {
-	max-height: 275px;
-	overflow: auto;
-	padding: 15px;
 }

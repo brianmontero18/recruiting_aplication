@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useQuery } from 'react-query';
+import { useLocation } from 'react-router-dom';
 import orderBy from 'lodash.orderby';
-import { useQueryStringContext } from '../queryStringContext';
 import { isNotEmpty } from '../utils';
 
 const CANDIDATES_PERSONIO_KEY = 'candidates-personio';
@@ -11,47 +11,16 @@ const defaultConfig = {
 	notifyOnChangeProps: 'tracked',
 };
 
-export function useCandidates() {
-	const { sortBy, name, status, position_applied } = useQueryStringContext();
+export function useCandidates({ select }) {
+	let location = useLocation();
 
 	return useQuery({
 		...defaultConfig,
 		queryKey: CANDIDATES_PERSONIO_KEY,
 		queryFn,
 		select: React.useCallback(
-			(res) => {
-				const filters = {
-					...(isNotEmpty(name) ? { name: name.split(',') } : {}),
-					...(isNotEmpty(status)
-						? { status: status.split(',') }
-						: {}),
-					...(isNotEmpty(position_applied)
-						? { position_applied: position_applied.split(',') }
-						: {}),
-				};
-				return getCandidates(res, sortBy, filters);
-			},
-			[sortBy, name, status, position_applied]
-		),
-	});
-}
-
-export function useFilters() {
-	const { status, position_applied } = useQueryStringContext();
-
-	return useQuery({
-		...defaultConfig,
-		queryKey: CANDIDATES_PERSONIO_KEY,
-		queryFn,
-		select: React.useCallback(
-			(res) => {
-				const filters = {
-					status: status.split(','),
-					position_applied: position_applied.split(','),
-				};
-				return getFilters(res, filters);
-			},
-			[position_applied, status]
+			(res) => select(res, location),
+			[select, location]
 		),
 	});
 }
@@ -70,7 +39,21 @@ async function queryFn() {
 	});
 }
 
-function getCandidates(res, sortByValue, filters) {
+export function getCandidates(res, location) {
+	let params = new URLSearchParams(location.search);
+
+	const sortBy = params.get('sortBy');
+	const name = params.get('name') || '';
+	const status = params.get('status') || '';
+	const position_applied = params.get('position_applied') || '';
+	const filters = {
+		...(isNotEmpty(name) ? { name: name.split(',') } : {}),
+		...(isNotEmpty(status) ? { status: status.split(',') } : {}),
+		...(isNotEmpty(position_applied)
+			? { position_applied: position_applied.split(',') }
+			: {}),
+	};
+
 	let data = res.data;
 	const filterNames = Object.keys(filters);
 
@@ -97,18 +80,27 @@ function getCandidates(res, sortByValue, filters) {
 
 		data = filteredData;
 	}
-	if (sortByValue && data) {
-		if (sortByValue?.startsWith('-')) {
-			return orderBy(data, [sortByValue.split('-')[1]], ['desc']);
+	if (sortBy && data) {
+		if (sortBy?.startsWith('-')) {
+			return orderBy(data, [sortBy.split('-')[1]], ['desc']);
 		} else {
-			return orderBy(data, sortByValue);
+			return orderBy(data, sortBy);
 		}
 	}
 
 	return data;
 }
 
-function getFilters(res, filters) {
+export function getFilters(res, location) {
+	let params = new URLSearchParams(location.search);
+	const status = params.get('status') || '';
+	const position_applied = params.get('position_applied') || '';
+
+	const filters = {
+		status: status.split(','),
+		position_applied: position_applied.split(','),
+	};
+
 	return res.data.reduce(
 		(acc, cur) => {
 			return {
