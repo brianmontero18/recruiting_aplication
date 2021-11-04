@@ -1,0 +1,59 @@
+.personio-filters {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 30px;
+	align-items: center;
+}
+.personio-filters-box-container {
+	position: relative;
+	display: inline-block;
+	border-radius: 2px;
+	border: 1px solid #dce6ec;
+	cursor: pointer;
+	font-size: 14px;
+	line-height: 20px;
+	padding: 8px 16px;
+}
+.personio-filters-box-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px 16px;
+	height: 36px;
+	max-width: 200px;
+	border-radius: 4px;
+	cursor: pointer;
+	border: none;
+	text-align: center;
+	background-color: var(--white);
+}
+.personio-filters-dropdown-container {
+	position: absolute;
+	left: 0;
+	top: 57px;
+	z-index: 100;
+	min-width: 150px;
+	overflow-x: visible;
+	overflow-x: initial;
+	overflow-y: auto;
+	background: #fff;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border: 1px solid #dce6ec;
+	border-radius: 4px;
+	box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%);
+	-webkit-animation: _27DR3 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.175) both;
+	animation: _27DR3 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.175) both;
+	will-change: transform;
+}
+.personio-clear-filter-button {
+	margin-left: 18px;
+	color: #0db5df;
+	background-color: white;
+	border: none;
+	cursor: pointer;
+	padding: 8px 16px;
+}
+.personio-clear-filter-button:hover {
+	background-color: #f4f7f9;
+}

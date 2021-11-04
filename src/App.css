@@ -1,0 +1,48 @@
+.personio-header-container {
+	width: 90%;
+	margin: auto;
+	padding: 5px 0px;
+}
+.personio-main-container {
+	width: 90%;
+	margin: auto;
+	margin-top: 40px;
+}
+.personio-details-container {
+	display: flex;
+	flex-direction: column;
+}
+
+@keyframes pulse {
+	0% {
+		background-position: 0% 0%;
+	}
+	100% {
+		background-position: -135% 0%;
+	}
+}
+.personio-skeleton-circle {
+	height: 40px;
+	background-color: #ebeef2;
+	animation: pulse 0.65s infinite alternate;
+}
+
+.personio-skeleton-line {
+	display: inline-block;
+	vertical-align: middle;
+	height: 60%;
+	width: 100%;
+	background: linear-gradient(
+		-90deg,
+		var(--grey_medium) 0%,
+		var(--grey_dark) 50%,
+		var(--grey_medium) 100%
+	);
+	background-size: 400% 400%;
+	animation: pulse 1.2s ease-in-out infinite;
+	width: 5.5em;
+	border-radius: 10px;
+}
+.personio-skeleton-line::before {
+	content: '\00a0';
+}
