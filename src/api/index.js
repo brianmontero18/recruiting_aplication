@@ -10,5 +10,5 @@ export const queryClient = new QueryClient({
 		},
 	},
 });
-
+export { QueryClientProvider } from 'react-query';
 export * from './candidates';

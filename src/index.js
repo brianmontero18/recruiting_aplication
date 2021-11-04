@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { queryClient, QueryClientProvider } from 'react-query';
+import { queryClient, QueryClientProvider } from './api';
 import App from './App';
 import './index.css';
 
