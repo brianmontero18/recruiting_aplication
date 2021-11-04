@@ -5,17 +5,13 @@ import orderBy from 'lodash.orderby';
 import { isNotEmpty } from '../utils';
 
 const CANDIDATES_PERSONIO_KEY = 'candidates-personio';
-const defaultConfig = {
-	retry: (failureCount) => failureCount < 3,
-	onError: (err) => console.log(err),
-	notifyOnChangeProps: 'tracked',
-};
+const CANDIDATES_PERSONIO_URL =
+	'http://personio-fe-test.herokuapp.com/api/v1/candidates';
 
 export function useCandidates({ select }) {
 	let location = useLocation();
 
 	return useQuery({
-		...defaultConfig,
 		queryKey: CANDIDATES_PERSONIO_KEY,
 		queryFn,
 		select: React.useCallback(
@@ -26,17 +22,14 @@ export function useCandidates({ select }) {
 }
 
 async function queryFn() {
-	return fetch(
-		'http://personio-fe-test.herokuapp.com/api/v1/candidates'
-	).then(async (res) => {
-		const data = await res.json();
+	const resp = await fetch(CANDIDATES_PERSONIO_URL);
+	const data = await resp.json();
 
-		if (!data.error) {
-			return data;
-		} else {
-			throw new Error(data.error?.message);
-		}
-	});
+	if (!data.error) {
+		return data;
+	} else {
+		throw new Error(data.error?.message);
+	}
 }
 
 export function getCandidates(res, location) {
@@ -67,9 +60,9 @@ export function getCandidates(res, location) {
 				filterNames.every((f) =>
 					filters[f].some((elem) => {
 						return (
-							elem
+							candidate[f]
 								.toUpperCase()
-								.indexOf(candidate[f].toUpperCase()) !== -1
+								.indexOf(elem.toUpperCase()) !== -1
 						);
 					})
 				)

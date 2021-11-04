@@ -24,13 +24,19 @@ export default function DropdownInput({ name, options = '', handleChange }) {
 								defaultChecked={options[element]}
 								onChange={(e) => handleChange(e, name, options)}
 							/>
-							<span style={{ marginLeft: '10px' }}>
+							<span
+								style={{
+									marginLeft: '10px',
+									cursor: 'initial',
+								}}
+							>
 								{element}
 							</span>
 							<br />
 						</React.Fragment>
 					) : null
 				)}
+				{!Object.keys(options).length ? 'Loading...' : null}
 			</div>
 		</>
 	);
